@@ -23,6 +23,7 @@ data-viewer/
       table-header.tsx
       table-body.tsx
       column-resizer.tsx
+      get-pinning-styles.ts
   shared/
     toolbar/
       search-input.tsx
