@@ -8,6 +8,7 @@ import { ViewSwitcher } from "./shared/toolbar/view-switcher";
 import { TableView } from "./views/table/table-view";
 import { CardView } from "./views/card/card-view";
 import { ListView } from "./views/list/list-view";
+import { KanbanView } from "./views/kanban/kanban-view";
 
 export function DataViewer<T extends Record<string, unknown>>({
   defaultViewType = "table",
@@ -35,12 +36,14 @@ export function DataViewer<T extends Record<string, unknown>>({
       {activeView === "table" && <TableView {...viewProps} />}
       {activeView === "card" && <CardView {...viewProps} />}
       {activeView === "list" && <ListView {...viewProps} />}
-
-      {activeView === "kanban" && (
-        <div className="text-center py-12 text-muted-foreground">
-          Board view is not yet available.
-        </div>
-      )}
+      {activeView === "kanban" &&
+        (viewProps.kanbanColumns && viewProps.kanbanColumns.length > 0 ? (
+          <KanbanView {...viewProps} kanbanColumns={viewProps.kanbanColumns} />
+        ) : (
+          <div className="text-center py-12 text-muted-foreground">
+            Kanban view is not configured — pass kanbanColumns to enable it.
+          </div>
+        ))}
     </SelectionStoreProvider>
   );
 }
