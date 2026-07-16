@@ -7,6 +7,7 @@ import { SelectionStoreProvider } from "./store/selection";
 import { ViewSwitcher } from "./shared/toolbar/view-switcher";
 import { TableView } from "./views/table/table-view";
 import { CardView } from "./views/card/card-view";
+import { ListView } from "./views/list/list-view";
 
 export function DataViewer<T extends Record<string, unknown>>({
   defaultViewType = "table",
@@ -33,15 +34,11 @@ export function DataViewer<T extends Record<string, unknown>>({
 
       {activeView === "table" && <TableView {...viewProps} />}
       {activeView === "card" && <CardView {...viewProps} />}
+      {activeView === "list" && <ListView {...viewProps} />}
 
       {activeView === "kanban" && (
         <div className="text-center py-12 text-muted-foreground">
           Board view is not yet available.
-        </div>
-      )}
-      {activeView === "list" && (
-        <div className="text-center py-12 text-muted-foreground">
-          List view is not yet available.
         </div>
       )}
     </SelectionStoreProvider>

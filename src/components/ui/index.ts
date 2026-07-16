@@ -18,6 +18,7 @@ export * from "./form";
 export * from "./hover-card";
 export * from "./input";
 export * from "./input-otp";
+export * from "./item";
 export * from "./kbd";
 export * from "./label";
 export * from "./menubar";
