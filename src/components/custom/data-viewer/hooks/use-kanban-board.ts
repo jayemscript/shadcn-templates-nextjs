@@ -189,8 +189,8 @@ export function useKanbanBoard<T extends Record<string, unknown>>({
             (r, i) => getRowId(r, i) !== rowId,
           );
           const fromRows = [row, ...(next.get(fromColumnId) ?? [])];
-          next.set(toColumnId, fromRows);
-          next.set(fromColumnId, toRows);
+          next.set(fromColumnId, fromRows);
+          next.set(toColumnId, toRows);
           return next;
         });
         onCardMoveError?.(error, row);

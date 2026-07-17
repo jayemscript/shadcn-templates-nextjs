@@ -8,6 +8,7 @@ import { Button, Card, CardContent, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { KanbanColumnDefinition } from "../../types/kanban";
 import { KanbanCard } from "./kanban-card";
+import { getRowId } from "../../utils/get-row-id";
 
 interface KanbanColumnProps<T extends Record<string, unknown>> {
   column: KanbanColumnDefinition<T>;
@@ -105,7 +106,7 @@ export function KanbanColumn<T extends Record<string, unknown>>({
           <>
             {data.map((row, index) => (
               <KanbanCard
-                key={index}
+                 key={`${column.id}::${getRowId(row, index)}`}
                 row={row}
                 index={index}
                 columnId={column.id}
