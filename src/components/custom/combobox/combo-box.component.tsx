@@ -35,6 +35,9 @@ export interface ComboBoxProps<T> {
   options: T[];
   getOptionLabel?: (item: T) => string;
   renderOption?: (item: T) => React.ReactNode;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
+  loadingMore?: boolean;
 
   onQuickAdd?: () => void;
   quickAddLabel?: string;
@@ -56,6 +59,9 @@ export function ComboBox<T extends { id: string }>({
   options,
   getOptionLabel,
   renderOption,
+  onLoadMore,
+  hasMore = false,
+  loadingMore = false,
   onQuickAdd,
   quickAddLabel = "Add New",
 }: ComboBoxProps<T>) {
@@ -149,7 +155,21 @@ export function ComboBox<T extends { id: string }>({
                 onValueChange={setSearch}
                 placeholder="Search..."
               />
-              <CommandList className="max-h-60 overflow-y-auto">
+              <CommandList
+                className="max-h-60 overflow-y-auto"
+                onScroll={(event) => {
+                  const element = event.currentTarget;
+                  if (
+                    onLoadMore &&
+                    hasMore &&
+                    !loadingMore &&
+                    element.scrollTop + element.clientHeight >=
+                      element.scrollHeight - 24
+                  ) {
+                    onLoadMore();
+                  }
+                }}
+              >
                 {onQuickAdd && (
                   <div className="border-t border-border p-1">
                     <button
@@ -190,6 +210,11 @@ export function ComboBox<T extends { id: string }>({
                     </CommandItem>
                   ))}
                 </CommandGroup>
+                {loadingMore && (
+                  <div className="px-3 py-2 text-center text-xs text-muted-foreground">
+                    Loading more...
+                  </div>
+                )}
                 {/* Quick Add Button */}
               </CommandList>
             </Command>
