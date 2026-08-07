@@ -90,3 +90,10 @@ export type { MultipleVideoViewProps } from "./views/video/multiple-video-view";
 export { formatBytes, parseBytes } from "./utils/file-size";
 export { buildFormData } from "./utils/file-serialization";
 export { resolveFormatConfig, buildAcceptString } from "./utils/file-formats";
+export {
+  cacheFile,
+  getCachedFile,
+  invalidateCachedFile,
+  invalidateCachedFiles,
+  loadCachedFile,
+} from "./utils/file-cache";
