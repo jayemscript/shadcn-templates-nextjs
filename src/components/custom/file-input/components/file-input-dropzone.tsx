@@ -42,9 +42,9 @@ export function FileInputDropzone({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = event.target.files;
+    const files = event.target.files ? Array.from(event.target.files) : [];
     event.target.value = "";
-    if (fileList && fileList.length > 0) void addFiles(fileList);
+    if (files.length > 0) void addFiles(files);
   };
 
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
@@ -103,6 +103,7 @@ export function FileInputDropzone({
         multiple={config.isMulti}
         disabled={config.disabled}
         onChange={handleChange}
+        onClick={(event) => event.stopPropagation()}
         className="hidden"
       />
       {children ?? (
